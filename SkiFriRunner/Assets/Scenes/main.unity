@@ -384,7 +384,7 @@ MonoBehaviour:
   - {fileID: 403055542}
   StartLane: 2
   CurrentLane: 2
-  Speed: 10
+  Speed: 15
 --- !u!212 &846678282
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -738,6 +738,7 @@ GameObject:
   - component: {fileID: 1645953269}
   - component: {fileID: 1645953271}
   - component: {fileID: 1645953272}
+  - component: {fileID: 1645953270}
   m_Layer: 0
   m_Name: RightForest
   m_TagString: Untagged
@@ -758,6 +759,31 @@ Transform:
   m_Father: {fileID: 1574587586}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &1645953270
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1645953268}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 2.5, y: 10}
+    newSize: {x: 2.5, y: 10}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 2.5, y: 10}
+  m_EdgeRadius: 0
 --- !u!212 &1645953271
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -811,7 +837,7 @@ Rigidbody2D:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1645953268}
   m_BodyType: 2
-  m_Simulated: 0
+  m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 0.0001
