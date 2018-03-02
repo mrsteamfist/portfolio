@@ -12,13 +12,15 @@ public class MovementScript : MonoBehaviour {
 	protected Vector2? startSwipe;
 	protected Vector2 lastPos;
 	protected float moveDistance = 0.0f;
+	protected bool canMove=false;
 	
 	/// <summary>
 	/// Start is called on the frame when a script is enabled just before
 	/// any of the Update methods is called the first time.
 	/// </summary>
-	void Start()
+	public void Start()
 	{
+		canMove=true;
 		transform.SetPositionAndRotation(Lanes[StartLane].position, Lanes[StartLane].rotation);
 	}
 
@@ -26,7 +28,7 @@ public class MovementScript : MonoBehaviour {
 	void Update ()
 	{
 		// if the user is not in a move
-		if(moveDistance == 0.0f)
+		if(canMove && moveDistance == 0.0f)
 		{
 			if (Input.GetMouseButton(0))
 			{
@@ -50,10 +52,22 @@ public class MovementScript : MonoBehaviour {
 					moveDistance = Lanes[CurrentLane-1].position.x - Lanes[CurrentLane].position.x;
 					CurrentLane--;					
 				}
-				Debug.Log("Distance " + moveDistance);
 				startSwipe = null;
 			}
 		}
+	}
+
+
+	public void Stop()
+	{
+		moveDistance = 0.0f;
+		canMove=false;
+	}
+
+	public void Stop(Vector2 at)
+	{
+		moveDistance = at.x - transform.position.x;
+		canMove=false;
 	}
 
 	/// <summary>

@@ -51,6 +51,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\CrashScript.cs" />
      <Compile Include="Assets\Scripts\MovementScript.cs" />
  <Reference Include="Unity.PackageManagerUI.Editor">
  <HintPath>D:/Projects/portfolio/SkiFriRunner/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
