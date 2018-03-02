@@ -8,12 +8,16 @@ public class MovementScript : MonoBehaviour {
 	public int StartLane = 0;
 	public int CurrentLane = 0;
 	public float Speed = 10.0f;
+	public Sprite LeftSprite;
+	public Sprite RightSprite;
+	public Sprite DefaultSprite;
+	public SpriteRenderer Skier;
 
 	protected Vector2? startSwipe;
 	protected Vector2 lastPos;
 	protected float moveDistance = 0.0f;
 	protected bool canMove=false;
-	
+
 	/// <summary>
 	/// Start is called on the frame when a script is enabled just before
 	/// any of the Update methods is called the first time.
@@ -45,18 +49,19 @@ public class MovementScript : MonoBehaviour {
 				{
 					moveDistance = Lanes[CurrentLane+1].position.x - Lanes[CurrentLane].position.x;
 					CurrentLane++;
+					Skier.sprite = RightSprite;
 				}
 				else if(delta < 0 && CurrentLane > 0)
 					//delta > Lanes[CurrentLane-1].position.x - Lanes[CurrentLane].position.x)
 				{
 					moveDistance = Lanes[CurrentLane-1].position.x - Lanes[CurrentLane].position.x;
-					CurrentLane--;					
+					CurrentLane--;
+					Skier.sprite = LeftSprite;
 				}
 				startSwipe = null;
 			}
 		}
 	}
-
 
 	public void Stop()
 	{
@@ -82,17 +87,21 @@ public class MovementScript : MonoBehaviour {
 			{
 				move *= -1.0f;
 				if (moveDistance > move)
-				{
 					move = moveDistance;
-				}
 			}
-			else if (moveDistance < move)
+			else
 			{
-				move = moveDistance;
+				 if (moveDistance < move)
+					move = moveDistance;
 			}
 
 			transform.Translate(move,0.0f,0.0f);
 			moveDistance -= move;
+		}
+		else
+		{
+			if (canMove)
+				Skier.sprite = DefaultSprite;
 		}
 	}
 }

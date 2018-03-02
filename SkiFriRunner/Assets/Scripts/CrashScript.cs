@@ -18,10 +18,8 @@ public class CrashScript : MonoBehaviour {
 		ContactPoint2D[] points = new ContactPoint2D[1];
 		if( other.GetContacts(points) > 0)
 		{
-			if(Mover != null)
-				Mover.Stop(points[0].point);
-			if(SkierSkin != null)
-				SkierSkin.sprite = CrashTexture;
+			Mover.Stop(points[0].point);
+			SkierSkin.sprite = CrashTexture;
 		}
 	}
 
