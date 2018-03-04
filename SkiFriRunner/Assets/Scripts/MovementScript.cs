@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class MovementScript : MonoBehaviour {
 
+	public MainMenuScript GameMenu;
 	public Transform[] Lanes;
 	public int StartLane = 0;
 	public int CurrentLane = 0;
@@ -12,7 +13,7 @@ public class MovementScript : MonoBehaviour {
 	public Sprite RightSprite;
 	public Sprite DefaultSprite;
 	public SpriteRenderer Skier;
-
+	public Sprite CrashTexture;
 	protected Vector2? startSwipe;
 	protected Vector2 lastPos;
 	protected float moveDistance = 0.0f;
@@ -32,7 +33,7 @@ public class MovementScript : MonoBehaviour {
 	void Update ()
 	{
 		// if the user is not in a move
-		if(canMove && moveDistance == 0.0f)
+		if(GameMenu.CanPlay && canMove && moveDistance == 0.0f)
 		{
 			if (Input.GetMouseButton(0))
 			{
@@ -104,4 +105,21 @@ public class MovementScript : MonoBehaviour {
 				Skier.sprite = DefaultSprite;
 		}
 	}
+
+	/// <summary>
+	/// Sent when an incoming collider makes contact with this object's
+	/// collider (2D physics only).
+	/// </summary>
+	/// <param name="other">The Collision2D data associated with this collision.</param>
+	void OnCollisionEnter2D(Collision2D other)
+	{
+		ContactPoint2D[] points = new ContactPoint2D[1];
+		if( other.GetContacts(points) > 0)
+		{
+			Stop(points[0].point);
+			Skier.sprite = CrashTexture;
+			GameMenu.ShowMenu();
+		}
+	}
+
 }
