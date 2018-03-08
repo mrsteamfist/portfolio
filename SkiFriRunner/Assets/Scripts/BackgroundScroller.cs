@@ -5,35 +5,38 @@ using UnityEngine;
 public class BackgroundScroller : MonoBehaviour {
 
 	public float scrollSpeed;
-	public float tileSizeZ;
+	public float colWidth;
+	public int numCols;
+	public float loopLocation;
+	public bool skipFirstCol;
+	public float currnetCol;
+	public float currentTime;
 
-    private Vector2 savedOffset;
     private Vector3 startPosition;
 
-	RectTransform t;
-    
 	// Use this for initialization
 	void Start () {
+		currentTime = 0f;
 		startPosition = transform.position;
 	}
-	
-	/*
-	//Update is called once per frame
-	void Update () {
-		float x = Mathf.Repeat (Time.time * scrollSpeed, tileSizeZ * 4);
-        x = x / tileSizeZ;
-        x = Mathf.Floor (x);
-        x = x / 4;
-        Vector2 offset = new Vector2 ( savedOffset.x, x);
-        float newPosition = Mathf.Repeat(savedOffset.x, Time.time * scrollSpeed - -4);
-        transform.position = startPosition + Vector3.forward * newPosition;		
-	}
-	*/
-	/// <summary>
-	/// This function is called every fixed framerate frame, if the MonoBehaviour is enabled.
-	/// </summary>
+
 	void FixedUpdate()
 	{
-		transform.position = startPosition += Vector3.up * scrollSpeed;
+		currentTime += Time.fixedDeltaTime;
+		float up = currentTime * scrollSpeed;
+		if (up > loopLocation)
+		{
+			currnetCol++;
+			currentTime = 0;
+			if (currnetCol >= numCols)
+			{
+				if (skipFirstCol)
+					currnetCol = 1;
+				else
+					currnetCol = 0;
+			}
+		}
+		float left = currnetCol * colWidth;
+		transform.position = startPosition + (Vector3.up * up) + (Vector3.left * left);
 	}
 }
